@@ -1,0 +1,12 @@
+.planning-tool .workspace{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)}
+.planning-tool .editor-table{margin:18px 0 10px;max-height:440px}
+.editor-table table{min-width:620px}.editor-table input,.editor-table select{min-width:88px;width:100%;padding:9px}
+.editor-table th{white-space:nowrap}.editor-table td{padding:7px}.page-state{font-size:12px;color:#607185;align-self:center}
+.business-bars{display:grid;gap:14px;margin:22px 0}.bar-label{display:flex;justify-content:space-between;gap:12px;font-size:13px;margin-bottom:6px;overflow-wrap:anywhere}
+.bar-label strong{font-variant-numeric:tabular-nums}.bar-track{height:9px;background:#e7edf3;border-radius:5px;overflow:hidden}.bar-fill{height:100%;background:#2d668c;border-radius:5px}.bar-fill.alert{background:#aa6137}
+.planning-tool h3{font-size:15px;margin:24px 0 12px}.planning-tool .empty{padding:25px 0;color:#607185}
+.schedule-tool .workspace{display:block}.schedule-tool .input-col{display:grid;grid-template-columns:minmax(0,3fr) minmax(220px,1fr);gap:20px;margin-bottom:20px}
+.gantt{display:grid;gap:12px;margin:20px 0}.gantt-row{display:grid;grid-template-columns:minmax(100px,1fr) minmax(150px,3fr);gap:12px;align-items:center}.gantt-label{font-size:13px;overflow-wrap:anywhere}.gantt-track{height:24px;border-radius:4px;background:#e7edf3;position:relative}.gantt-bar{position:absolute;top:0;bottom:0;background:#447e9c;border-radius:4px;min-width:3px}.gantt-bar.critical{background:#aa6137}
+.funnel-stage{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;color:white;background:#23485e;border-radius:5px;min-width:140px;margin:8px auto;max-width:100%;box-sizing:border-box}.funnel-stage strong{font-size:22px;font-variant-numeric:tabular-nums}.funnel-stage:nth-child(2){background:#2d668c}.funnel-stage:nth-child(3){background:#447e9c}.funnel-stage:nth-child(4){background:#967244}
+@media(max-width:900px){.planning-tool .workspace{grid-template-columns:1fr}.schedule-tool .input-col{display:block}.gantt-row{grid-template-columns:minmax(70px,1fr) minmax(100px,2fr)}}
+@media print{.business-bars,.gantt{-webkit-print-color-adjust:exact;print-color-adjust:exact}}

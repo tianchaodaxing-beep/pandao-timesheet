@@ -1,0 +1,14 @@
+const test=require('node:test');const assert=require('node:assert/strict');const P=require('../planning.js');
+const row={date:'2026-09-28',person:'甲',project:'项目一',hours:3.5,rate:200,billable:'是'};
+test("人员项目与费用总分核对",()=>{const r=P.timesheets([row,{...row,person:'乙',hours:4,rate:180},{...row,date:'2026-09-29',project:'培训',hours:2,billable:'否'}]);assert.deepEqual([r.hours,r.billableHours,r.amount],[9.5,7.5,1420]);assert.equal(r.people.reduce((s,g)=>s+g.amount,0),1420);assert.equal(r.projects.reduce((s,g)=>s+g.hours,0),9.5);});
+test("非计费工时保留费用为零",()=>{const r=P.timesheets([{...row,billable:'否'}]);assert.equal(r.hours,3.5);assert.equal(r.amount,0);});
+test("小时单价零可记录",()=>{assert.equal(P.timesheets([{...row,rate:0}]).amount,0);});
+test("同人同日跨项目合计受限",()=>{assert.throws(()=>P.timesheets([{...row,hours:20},{...row,project:'项目二',hours:5}]),/超过24/);});
+test("不同人员各24小时可记录",()=>{assert.equal(P.timesheets([{...row,hours:24},{...row,person:'乙',hours:24}]).hours,48);});
+test("同人不同日期分开合计",()=>{assert.equal(P.timesheets([{...row,hours:24},{...row,date:'2026-09-29',hours:24}]).hours,48);});
+test("零工时被拒绝",()=>{assert.throws(()=>P.timesheets([{...row,hours:0}]));});
+test("负小时单价被拒绝",()=>{assert.throws(()=>P.timesheets([{...row,rate:-1}]));});
+test("无效计费标记被拒绝",()=>{assert.throws(()=>P.timesheets([{...row,billable:'yes'}]),/是/);});
+test("错误日期被拒绝",()=>{assert.throws(()=>P.timesheets([{...row,date:'2026-09-31'}]));});
+test("逐条费用舍入核对",()=>{const r=P.timesheets([{...row,hours:1.333,rate:10}]);assert.equal(r.amount,13.33);assert.equal(r.details[0].hours,1.333);});
+test("缺失人员被拒绝",()=>{assert.throws(()=>P.timesheets([{...row,person:''}]),/人员/);});
