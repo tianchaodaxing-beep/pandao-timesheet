@@ -589,3 +589,5 @@ footer {
 :is(.input-col, .output-col) {
   min-width: 0;
 }
+
+.language-button{width:auto!important;flex:none!important;margin:0 0 0 12px!important;padding:7px 12px!important;border:1px solid currentColor!important;border-radius:6px!important;background:transparent!important;color:inherit!important;font:inherit!important;font-size:13px!important;cursor:pointer;white-space:nowrap;line-height:1.4!important}.language-button:focus-visible{outline:3px solid #287ed0;outline-offset:3px}header{gap:12px;flex-wrap:wrap}html[lang=en] .flow,html[lang=en] .steps{flex-wrap:wrap}html[lang=en] h1{overflow-wrap:break-word}html[lang=en] .metric .label{white-space:normal}

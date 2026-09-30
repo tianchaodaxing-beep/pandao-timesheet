@@ -4,6 +4,7 @@
     const node = document.createElement(tag);
     for (const [k, v] of Object.entries(attrs)) {
       if (k === "text") node.textContent = v;
+      else if (k === "raw") { if (v) node.setAttribute("data-user-content", ""); }
       else if (k === "class") node.className = v;
       else if (k.startsWith("on") && typeof v === "function")
         node.addEventListener(k.slice(2), v);
@@ -18,6 +19,7 @@
             : document.createTextNode(String(child)),
         );
     }
+    if (!attrs.raw && root.PandaoLang) root.PandaoLang.apply(node);
     return node;
   };
   function clear(node) {
@@ -157,6 +159,7 @@
           {},
           columns.map((c) =>
             h("td", {
+              raw: !(c.translate || c.key === "status" || c.key === "state" || c.label === "状态" || c.label === "关键任务"),
               class: c.wrap ? "wrap" : c.number ? "numeric" : "",
               text:
                 typeof c === "string"
@@ -221,6 +224,7 @@
       : value;
   }
   function exportRows(name, rows) {
+    if (root.PandaoLang) { name = root.PandaoLang.t(name); rows = root.PandaoLang.headers(rows); }
     if (!rows.length) throw Error("没有可导出的结果");
     const safe = rows.map((r) =>
       Object.fromEntries(Object.entries(r).map(([k, v]) => [k, safeCell(v)])),
@@ -229,7 +233,7 @@
     XLSX.utils.book_append_sheet(book, XLSX.utils.json_to_sheet(safe), "结果");
     XLSX.writeFile(book, name.endsWith(".xlsx") ? name : name + ".xlsx");
   }
-  async function readRows(file, dateHeaders = []) {
+  async function readRows(file, dateHeaders = [], expectedHeaders = []) {
     if (!file) throw Error("请选择表格");
     if (file.size > 10 * 1024 * 1024) throw Error("请选择小于10 MB的表格");
     if (!/\.(xlsx|xls|csv|tsv)$/i.test(file.name))
@@ -260,6 +264,7 @@
         .replace(/^\uFEFF/, "")
         .trim(),
     );
+    if (root.PandaoLang) for (let i=0;i<headers.length;i++) headers[i]=root.PandaoLang.canonicalHeader(headers[i],expectedHeaders);
     if (headers.some((x) => !x) || new Set(headers).size !== headers.length)
       throw Error("第一行须为非空且不重复的列名");
     const rows = data

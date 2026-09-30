@@ -15,7 +15,7 @@
     function mapped(data){
       const missing=config.columns.filter(c=>!data.headers.includes(c.label));
       if(missing.length)throw Error("表格缺少列："+missing.map(c=>c.label).join("、")+"。请使用输入模板。");
-      return data.rows.map(row=>Object.fromEntries(config.columns.map(c=>[c.key,row[c.label]])));
+      return data.rows.map(row=>Object.fromEntries(config.columns.map(c=>[c.key,c.key==="billable"&&/^(yes|no)$/i.test(String(row[c.label]))?(String(row[c.label]).toLowerCase()==="yes"?"是":"否"):row[c.label]])));
     }
     function render(){
       page=Math.min(page,Math.max(0,Math.ceil(records.length/size)-1));
@@ -38,7 +38,7 @@
     input.append(edit,pages,U.actions(U.button("添加一行",()=>{if(records.length>=20000)throw Error("单次最多20,000行");records.push(Object.fromEntries(config.columns.map(c=>[c.key,c.default??""])));page=Math.floor((records.length-1)/size);render();invalidate();}),U.button("恢复演示",()=>{records=config.examples.map(r=>({...r}));page=0;render();calculate();U.source("演示数据");}),U.button(config.calculateLabel,calculate,true)));
     const files=U.panel("导入与模板");
     files.append(U.fileInput("选择表格",async file=>{
-      const data=await U.readRows(file,config.columns.filter(c=>c.type==="date").map(c=>c.label));
+      const data=await U.readRows(file,config.columns.filter(c=>c.type==="date").map(c=>c.label),config.columns.map(c=>c.label));
       const candidate=mapped(data),value=config.compute(candidate,params());
       records=candidate;page=0;render();display(value);U.source("文件："+file.name);U.notice("已读取 "+records.length+" 行");
     }),U.actions(U.button("下载输入模板",()=>U.exportRows("输入模板.xlsx",config.examples.map(r=>Object.fromEntries(config.columns.map(c=>[c.label,r[c.key]??""])))))));

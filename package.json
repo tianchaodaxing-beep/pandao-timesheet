@@ -1,6 +1,6 @@
 {
   "name": "pandao-timesheet",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "记录人员与项目工时，汇总可计费工时和服务费用。",
   "license": "MIT",
