@@ -130,6 +130,7 @@
       main,
       h("footer", {}, [
         h("span", { text: "PANDAO · 开源业务工具" }),
+        h("a", { href: "mailto:tianchaodaxing@gmail.com", text: "tianchaodaxing@gmail.com" }),
         h("a", {
           href: meta.repo + "/issues",
           target: "_blank",

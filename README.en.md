@@ -35,3 +35,7 @@ MIT licensed. Commercial use, modification and redistribution are allowed while 
 ## Feedback
 
 Use the [issue tracker](https://github.com/tianchaodaxing-beep/pandao-timesheet/issues) to describe your use case and expected result. Use fictional examples in public reports; do not post customer data or credentials.
+
+## Contact
+
+Project enquiries and collaboration: [tianchaodaxing@gmail.com](mailto:tianchaodaxing@gmail.com)

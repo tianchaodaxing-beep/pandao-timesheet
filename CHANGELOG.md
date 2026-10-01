@@ -1,3 +1,7 @@
+# 1.0.4
+
+Add a contact email for project enquiries and collaboration: [tianchaodaxing@gmail.com](mailto:tianchaodaxing@gmail.com).
+
 # 1.0.3
 
 ## 简体中文

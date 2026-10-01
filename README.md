@@ -41,3 +41,7 @@
 ## 界面语言
 
 保留中文使用方式，英文说明见 README.en.md。有网页的工具可点击页面上的 English 切换语言，点击“中文”返回。语言切换不会改写已有输入。
+
+## Contact
+
+Project enquiries and collaboration: [tianchaodaxing@gmail.com](mailto:tianchaodaxing@gmail.com)
